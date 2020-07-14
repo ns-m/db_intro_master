@@ -46,7 +46,7 @@
 #Удалите из таблицы записи, где адрес плательщика или адрес получателя установлен в неопределенное значение или пустую строку.
 #delete from billing where payer_email='' or payer_email is null or recipient_email='' or recipient_email is null;
 
-use project_simple;
+#use project_simple;
 
 #select * from project;
 #select count(1) from project;
@@ -69,12 +69,41 @@ use project_simple;
 #    client_name as Client
 #from project where project_finish > project_start group by client_name;
 
-select 
-	avg(datediff(project_finish, project_start)) as Среднее,
-    max(datediff(project_finish, project_start)) as Максимальное,
-    min(datediff(project_finish, project_start)) as Минимальное,
-    client_name as Client
+#select 
+#	avg(datediff(project_finish, project_start)) as Среднее,
+#    max(datediff(project_finish, project_start)) as Максимальное,
+#    min(datediff(project_finish, project_start)) as Минимальное,
+#    client_name as Client
 #from project where project_finish > project_start group by client_name order by Максимальное;
-from project where project_finish > project_start group by client_name order by Максимальное desc limit 10;
+#from project where project_finish > project_start group by client_name order by Максимальное desc limit 10;
 
-select count(1), avg(budget), client_name from project group by client_name;
+#select count(1), avg(budget), client_name from project group by client_name;
+
+#use store_simple;
+
+#select category, count(1) from store group by category order by category;
+
+#Задание
+#Выведите общее количество заказов компании.
+#use project_simple;
+#select count(1) from project;
+
+#Задание
+#Выведите количество товаров в каждой категории. Результат должен содержать два столбца:
+#название категории, количество товаров в данной категории.
+#use store_simple;
+#select category, count(1) from store group by category order by category;
+
+#Задание
+#Выведите 5 категорий товаров, продажи которых принесли наибольшую выручку. 
+#Под выручкой понимается сумма произведений стоимости товара на количество проданных единиц. 
+#Результат должен содержать два столбца: 
+#    название категории,
+#    выручка от продажи товаров в данной категории. group by category
+#use store_simple;
+#select category, sum(price * sold_num) as Val from store group by category order by Val desc limit 5;
+
+#Задание
+#Выведите в качестве результата одного запроса общее количество заказов, сумму стоимостей (бюджетов) всех проектов, 
+#средний срок исполнения заказа в днях.
+#NB! Для вычисления длительности проекта удобно использовать встроенную функцию datediff().
