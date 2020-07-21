@@ -156,6 +156,7 @@
 #  LEFT OUTER JOIN C
 #    ON a.c_id = C.id;
 use store;
-select category.name as name, count(1) as sale_num from category inner join category_has_good as c on category.id = c.category_id
-inner join good on category.id = good.id
-LEFT OUTER join sale_has_good as salehd on good.id = salehd.good_id group by name order by sale_num desc;
+select  count(1) as sale_num from good inner JOIN sale_has_good as salehg on good.id = salehd.good_id
+union
+select category.name as name from good LEFT OUTER JOIN category_has_good as c on good.id = c.good_id
+LEFT OUTER JOIN category on category.id = c.category_id group by name order by sale_num desc;
